@@ -46,7 +46,7 @@ class Player(GameSprite):
 plH = 100
 plW = 25
 plL = Player('RedPlayer.png', 0, (w_height - plH)//2, 10, plW, plH)
-plR = Player('BluPlayer.png', (w_width - plW), (w_height - plH)//2, 10, plW, plH)
+plR = Player('BluePlayer.png', (w_width - plW), (w_height - plH)//2, 10, plW, plH)
 #enemies = sprite.Group()
 enemies = list()
 for i in range(1):

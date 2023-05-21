@@ -54,11 +54,15 @@ class Ball(GameSprite):
         self.rect.y += self.speedY
         if (self.rect.y <= 0) or ((self.rect.y >= (w_height - self.rect.height))):
             self.speedY *= -1
-            return ""
+        #    print(0)
+        #    return 0
         if (self.rect.x <= 0):
-            return "left"
+            print(1)
+            return 1
         if ((self.rect.x >= (w_width - self.rect.width))):
-            return "right"
+            print(2)
+            return 2
+        return 0
 plH = 100
 plW = 25
 plL = Player('RedPlayer.png', 0, (w_height - plH)//2, 10, plW, plH)
@@ -66,22 +70,24 @@ plR = Player('BluePlayer.png', (w_width - plW), (w_height - plH)//2, 10, plW, pl
 ball = Ball('ball.png', plW, (w_height - 35)//2, 7, 35, 35)
 run = True
 finish = False
-result = ""
+res = 0
 while run:
     for e in event.get():
         if e.type == QUIT:
             run = False     
     window.fill(bgColor)
-    if result == "":
-        result = ball.move()
+    if res == 0:
+        if sprite.collide_rect(ball, plL) or sprite.collide_rect(ball, plR):
+            ball.speedX *= -1
+        res = ball.move()
         plL.moveLP()
         plR.moveRP()   
         ball.reset()    
         plL.reset()
         plR.reset()
-    elif result == "left":
+    elif res == 1:
         window.blit(rightLabel, ((w_width - 300)//2, (w_height - 100)//2))
-    elif result == "right":
+    elif res == 2:
         window.blit(leftLabel, ((w_width - 300)//2, (w_height - 100)//2))
     display.update()
     clock.tick(60)
